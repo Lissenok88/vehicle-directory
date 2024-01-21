@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="vehicleTo" type="com.lissenok88.vehicle.directory.to.VehicleTo"*/-->
+<!--/*@thymesVar id="vehicleTos" type="java.util.List<com.lissenok88.vehicle.directory.to.VehicleTo>"*/-->
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Vehicles</title>
+    <style>table th, table td {
+        padding: 5px;
+    }</style>
+</head>
+
+<body>
+<h1>Vehicles</h1>
+
+<table>
+    <tr>
+        <th>StateNumber</th>
+        <th>Make</th>
+        <th>Model</th>
+    </tr>
+
+    <tr th:each="vehicleTo : ${vehicleTos}">
+        <td th:text="${vehicleTo.getStateNumber()}"></td>
+        <td th:text="${vehicleTo.getMake()}"></td>
+        <td th:text="${vehicleTo.getModel()}"></td>
+        <td><a th:href="'/ui/vehicle/' + ${vehicleTo.getId()} + '/edit'">Update</a></td>
+    </tr>
+
+</table>
+<h4><a href="/ui/vehicle/new">Add vehicle</a></h4>
+
+<form method="get" action="/ui/vehicle/filter">
+    <input type="hidden" name="action" value="filter">
+    <dl>
+        <dt>Make:</dt>
+        <dd><input type="text" name="make" value="${param.make}"></dd>
+    </dl>
+    <dl>
+        <dt>Model:</dt>
+        <dd><input type="text" name="model" value="${param.models}"></dd>
+    </dl>
+    <dl>
+        <dt>Category:</dt>
+        <dd><input type="text" name="category" value="${param.category}"></dd>
+    </dl>
+    <dl>
+        <dt>State Number:</dt>
+        <dd><input type="text" name="stateNumber" value="${param.stateNumber}"></dd>
+    </dl>
+    <dl>
+    <dt>Year:</dt>
+    <dd><input type="text" name="year" value="${param.year}"></dd>
+</dl>
+    <button type="submit">Filter</button>
+</form>
+<br/>
+</body>
+</html>
+
