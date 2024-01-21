@@ -36,9 +36,22 @@ public class Vehicle extends BaseEntity {
     private String type;
 
     @Column(name = "year")
-    private int year;
+    @NotBlank
+    private String year;
 
     @Column(name = "trailer", nullable = false)
     @NotBlank
     private  String trailer;
+
+    public Vehicle(Long id, String stateNumber, String make, String model, String category, String type, String year, String trailer) {
+        super(id);
+        this.stateNumber = stateNumber;
+        this.make = make;
+        this.model = model;
+        this.category = category;
+        this.type = type;
+        this.year = year;
+        this.trailer = trailer;
+
+    }
 }

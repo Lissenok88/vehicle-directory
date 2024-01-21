@@ -9,6 +9,6 @@ create table VEHICLE
   MODEL varchar(1024) not null,
   CATEGORY varchar(1024) not null,
   TYPE varchar(1024) not null,
-  YEAR integer,
+  YEAR varchar(1024) not null,
   TRAILER varchar(1024) not null
 );

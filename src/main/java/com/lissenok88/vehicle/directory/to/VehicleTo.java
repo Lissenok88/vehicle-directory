@@ -25,12 +25,13 @@ public class VehicleTo extends BaseTo{
     @NotBlank
     String type;
 
-    Integer year;
+    @NotBlank
+    String year;
 
     @NotBlank
     String trailer;
 
-    public VehicleTo(Long id, String stateNumber, String make, String model, String category, String type, Integer year, String trailer) {
+    public VehicleTo(Long id, String stateNumber, String make, String model, String category, String type, String year, String trailer) {
         super(id);
         this.stateNumber = stateNumber;
         this.make = make;
