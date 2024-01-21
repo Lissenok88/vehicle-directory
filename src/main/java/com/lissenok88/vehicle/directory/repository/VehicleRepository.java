@@ -27,6 +27,9 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     @Query("SELECT v FROM Vehicle v WHERE v.model =:model")
     List<Vehicle> findAllByModel(String model);
 
+    @Query("SELECT v FROM Vehicle v WHERE v.stateNumber =:stateNumber")
+    List<Vehicle> findSameStateNumber(String stateNumber);
+
 
     @Query("SELECT v FROM Vehicle v WHERE v.make =:make OR v.model =:model OR v.category =:category OR v.stateNumber =:stateNumber OR v.year =:year")
     List<Vehicle> findByFilter(String make, String model, String category, String stateNumber, Integer year);

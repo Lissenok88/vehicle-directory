@@ -24,11 +24,15 @@ class VehicleControllerTest extends AbstractControllerTest{
 
     private static final String REST_URL = VehicleController.REST_URL;
 
-    @Autowired
-    public VehicleRepository repository;
+    private final VehicleRepository repository;
+
+    private final VehicleMapper mapper;
 
     @Autowired
-    public VehicleMapper mapper;
+    VehicleControllerTest(VehicleRepository repository, VehicleMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @Test
     void get() throws Exception {
@@ -101,5 +105,15 @@ class VehicleControllerTest extends AbstractControllerTest{
         Vehicle newVehicle = new Vehicle(newId, newTo.getStateNumber(), newTo.getMake(), newTo.getModel(), newTo.getCategory(), newTo.getType(), newTo.getYear(), newTo.getTrailer());
         VEHICLE_MATCHER.assertMatch(created, newVehicle);
         VEHICLE_MATCHER.assertMatch(repository.getExisted(created.id()), newVehicle);
+    }
+
+    @Test
+    @Transactional
+    void createSameStateNumber() throws Exception{
+        VehicleTo newTo = new VehicleTo(null, VEHICLE_TO_1.getStateNumber(), "Toyota", "Camry", "B", "Седан", "2020", "NO");
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(writeValue(newTo)))
+                .andExpect(status().isUnprocessableEntity());
     }
 }

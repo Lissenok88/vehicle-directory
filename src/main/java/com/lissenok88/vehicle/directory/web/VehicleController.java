@@ -3,6 +3,7 @@ package com.lissenok88.vehicle.directory.web;
 import com.lissenok88.vehicle.directory.mapper.VehicleMapper;
 import com.lissenok88.vehicle.directory.model.Vehicle;
 import com.lissenok88.vehicle.directory.repository.VehicleRepository;
+import com.lissenok88.vehicle.directory.service.VehicleService;
 import com.lissenok88.vehicle.directory.to.VehicleTo;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-import static com.lissenok88.vehicle.directory.util.ValidationUtil.assureIdConsistent;
-import static com.lissenok88.vehicle.directory.util.ValidationUtil.checkNew;
+import static com.lissenok88.vehicle.directory.util.ValidationUtil.*;
 
 @Slf4j
 @RestController
@@ -31,22 +31,21 @@ public class VehicleController {
     public static final String REST_URL = "/api/vehicle";
 
     private VehicleRepository repository;
-
     private VehicleMapper mapper;
+    private VehicleService service;
 
     @Autowired
-    VehicleController(VehicleRepository repository, VehicleMapper mapper) {
+    VehicleController(VehicleRepository repository, VehicleMapper mapper, VehicleService service) {
         this.repository = repository;
         this.mapper = mapper;
+        this.service = service;
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public ResponseEntity<Vehicle> createWithLocation(@Valid @RequestBody VehicleTo vehicleTo) {
         log.info("create vehicle {}", vehicleTo);
-        checkNew(vehicleTo);
-
-        Vehicle created = repository.save(mapper.toEntity(vehicleTo));
+        Vehicle created = service.create(vehicleTo);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")

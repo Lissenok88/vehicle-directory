@@ -24,16 +24,6 @@ public class ValidationUtil {
         }
     }
 
-    public static void checkPin(String pin) {
-        if(pin.length() != 4 || !NumberUtils.isDigits(pin)) throw new IllegalArgumentException("PIN entered incorrectly");
-    }
-
-    public static void equalPins(String enteredPin, String accountPin) {
-        if(Integer.parseInt(enteredPin) != Integer.parseInt(accountPin)) {
-            throw new IllegalArgumentException(PIN_ERROR_MESSAGE);
-        }
-    }
-
     public static void checkModification(int count, int id) {
         if (count == 0) {
             throw new IllegalRequestDataException("Entity with id=" + id + " not found");
