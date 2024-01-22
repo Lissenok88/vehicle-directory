@@ -114,6 +114,6 @@ class VehicleControllerTest extends AbstractControllerTest{
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(newTo)))
-                .andExpect(status().isUnprocessableEntity());
+                .andExpect(status().isConflict());
     }
 }

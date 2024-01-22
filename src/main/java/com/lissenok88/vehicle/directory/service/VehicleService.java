@@ -28,8 +28,8 @@ public class VehicleService {
 
     public Vehicle create(VehicleTo vehicleTo) {
         checkNew(vehicleTo);
-        List<Vehicle> vehicles = repository.findSameStateNumber(vehicleTo.getStateNumber());
-        if (!vehicles.isEmpty()) {
+        List<Vehicle> vehicle = repository.findByStateNumber(vehicleTo.getStateNumber());
+        if(!vehicle.isEmpty()) {
             throw new IllegalRequestDataException("the number " + vehicleTo.getStateNumber() + " already exists");
         }
         return repository.save(mapper.toEntity(vehicleTo));
