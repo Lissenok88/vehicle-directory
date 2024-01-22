@@ -2,38 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <!--/*@thymesVar id="vehicleTo" type="com.lissenok88.vehicle.directory.to.VehicleTo"*/-->
 <!--/*@thymesVar id="vehicleTos" type="java.util.List<com.lissenok88.vehicle.directory.to.VehicleTo>"*/-->
+<!--/*@thymesVar id="types" type="java.util.List<String>"*/-->
 
 <head>
     <meta charset="UTF-8"/>
-    <title>Vehicles</title>
-    <style>table th, table td {
-        padding: 5px;
-    }</style>
+    <title>Edit Vehicle</title>
 </head>
 <body>
-
+<h1>Edit Vehicle</h1>
 <div>
 <form method="post">
     StateNumber: <label>
-    <input type="text" name="stateNumber" th:value="${vehicleTo.getStateNumber()}" placeholder="stateNumber"/>
+    <input type="text" name="stateNumber" th:value="${vehicleTo.getStateNumber()}"/>
 </label><br><br>
     Make: <label>
-    <input type="text" name="make" th:value="${vehicleTo.getMake()}" placeholder="make">
+    <input type="text" name="make" th:value="${vehicleTo.getMake()}">
 </label><br><br>
     Model: <label>
-    <input type="text" name="model" th:value="${vehicleTo.getModel()}" placeholder="model">
+    <input type="text" name="model" th:value="${vehicleTo.getModel()}">
 </label><br><br>
     Category: <label>
-    <input type="text" name="category" th:value="${vehicleTo.getCategory()}" placeholder="category">
+    <input type="text" name="category" th:value="${vehicleTo.getCategory()}">
 </label><br><br>
     Type: <label>
-    <input type="text" name="type" th:value="${vehicleTo.getType()}" placeholder="type">
+    <select class="form-control" id="types" name="type">
+        <option value="0" th:text="${vehicleTo.getType()}"></option>
+        <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+    </select>
 </label><br><br>
     Year: <label>
-    <input type="text" name="year" th:value="${vehicleTo.getYear()}" placeholder="year">
+    <input type="text" name="year" th:value="${vehicleTo.getYear()}">
 </label><br><br>
     Trailer: <label>
-    <input type="text" name="trailer" th:value="${vehicleTo.getTrailer()}" placeholder="trailer">
+    <input type="text" name="trailer" th:value="${vehicleTo.getTrailer()}">
 </label><br><br>
     <input type="submit" value="Update Vehicle">
     <input type="button" name="cancel" value="Cancel" onclick='location.href="/ui/vehicle"'>

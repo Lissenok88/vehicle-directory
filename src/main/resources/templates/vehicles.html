@@ -18,6 +18,10 @@
         <th>StateNumber</th>
         <th>Make</th>
         <th>Model</th>
+        <th>Category</th>
+        <th>Type</th>
+        <th>Year</th>
+        <th>Trailer</th>
     </tr>
     </thead>
     <tbody>
@@ -25,6 +29,10 @@
         <td th:text="${vehicleTo.getStateNumber()}"></td>
         <td th:text="${vehicleTo.getMake()}"></td>
         <td th:text="${vehicleTo.getModel()}"></td>
+        <td th:text="${vehicleTo.getCategory()}"></td>
+        <td th:text="${vehicleTo.getType()}"></td>
+        <td th:text="${vehicleTo.getYear()}"></td>
+        <td th:text="${vehicleTo.getTrailer()}"></td>
         <td><a th:href="'/ui/vehicle/' + ${vehicleTo.getId()} + '/edit'">Update</a></td>
     </tr>
     </tbody>

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -44,7 +45,13 @@ public class VehicleUIController {
     @GetMapping("/{id}/edit")
     public String showEdit(@PathVariable long id, Model model) {
         log.info("get vehicle {}", id);
+        List<String> types = new ArrayList<>();
+        types.add("Внедорожник");
+        types.add("Седан");
+        types.add("Хэтчбек");
+        types.add("Универсал");
         VehicleTo vehicleTo = mapper.toTo(repository.getExisted(id));
+        model.addAttribute("types", types);
         model.addAttribute("vehicleTo", vehicleTo);
         return "vehicle-edit";
     }
@@ -52,6 +59,12 @@ public class VehicleUIController {
     @GetMapping("/new")
     public String showAdd(Model model) {
         log.info("new vehicle");
+        List<String> types = new ArrayList<>();
+        types.add("Внедорожник");
+        types.add("Седан");
+        types.add("Хэтчбек");
+        types.add("Универсал");
+        model.addAttribute("types", types);
         return "vehicle-add";
     }
 
@@ -65,7 +78,6 @@ public class VehicleUIController {
     @PostMapping("/new")
     public String create(@Valid @ModelAttribute("vehicleTo") VehicleTo vehicleTo, Model model) {
         log.info("create {}", vehicleTo);
-        //repository.save(mapper.toEntity(vehicleTo));
         service.create(vehicleTo);
         return "redirect:/ui/vehicle";
     }
