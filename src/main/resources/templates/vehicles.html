@@ -6,54 +6,66 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Vehicles</title>
-    <style>table th, table td {
-        padding: 5px;
-    }</style>
 </head>
 
 <body>
 <h1>Vehicles</h1>
-
-<table>
+<button type="button" onclick='location.href="/ui/vehicle/new"'>Add new vehicle</button>
+<br><br>
+<table class="table table-striped">
+    <thead class="sticky-top bg-white">
     <tr>
         <th>StateNumber</th>
         <th>Make</th>
         <th>Model</th>
     </tr>
-
+    </thead>
+    <tbody>
     <tr th:each="vehicleTo : ${vehicleTos}">
         <td th:text="${vehicleTo.getStateNumber()}"></td>
         <td th:text="${vehicleTo.getMake()}"></td>
         <td th:text="${vehicleTo.getModel()}"></td>
         <td><a th:href="'/ui/vehicle/' + ${vehicleTo.getId()} + '/edit'">Update</a></td>
     </tr>
-
+    </tbody>
 </table>
-<h4><a href="/ui/vehicle/new">Add vehicle</a></h4>
 
 <form method="get" action="/ui/vehicle/filter">
+    <dl>
     <input type="hidden" name="action" value="filter">
-    <dl>
-        <dt>Make:</dt>
-        <dd><input type="text" name="make" value="${param.make}"></dd>
+        <dl>
+        <dt>Make:
+            <label>
+                <input type="text" name="make" th:value="${param.make}">
+            </label></dt>
+        </dl>
+        <dl>
+        <dt>Model:
+            <label>
+                <input type="text" name="model" th:value="${param.models}">
+            </label></dt>
+        </dl>
+        <dl>
+        <dt>Category:
+            <label>
+                <input type="text" name="category" th:value="${param.category}">
+            </label></dt>
+        </dl>
+        <dl>
+        <dt>State Number:
+            <label>
+                <input type="text" name="stateNumber" th:value="${param.stateNumber}">
+            </label></dt>
+        </dl>
+        <dl>
+        <dt>Year:
+            <label>
+                <input type="text" name="year" th:value="${param.year}">
+            </label></dt>
+        </dl>
+        <button type="submit">Filter</button>
+        <button type="button" onclick='location.href="/ui/vehicle"'>Clear Filter</button>
     </dl>
-    <dl>
-        <dt>Model:</dt>
-        <dd><input type="text" name="model" value="${param.models}"></dd>
-    </dl>
-    <dl>
-        <dt>Category:</dt>
-        <dd><input type="text" name="category" value="${param.category}"></dd>
-    </dl>
-    <dl>
-        <dt>State Number:</dt>
-        <dd><input type="text" name="stateNumber" value="${param.stateNumber}"></dd>
-    </dl>
-    <dl>
-    <dt>Year:</dt>
-    <dd><input type="text" name="year" value="${param.year}"></dd>
-</dl>
-    <button type="submit">Filter</button>
 </form>
 <br/>
 </body>
