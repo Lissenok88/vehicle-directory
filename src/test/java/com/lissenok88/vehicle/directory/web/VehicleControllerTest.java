@@ -24,15 +24,10 @@ class VehicleControllerTest extends AbstractControllerTest{
 
     private static final String REST_URL = VehicleController.REST_URL;
 
-    private final VehicleRepository repository;
-
-    private final VehicleMapper mapper;
-
     @Autowired
-    VehicleControllerTest(VehicleRepository repository, VehicleMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
+    private VehicleRepository repository;
+    @Autowired
+    private VehicleMapper mapper;
 
     @Test
     void get() throws Exception {
@@ -114,6 +109,6 @@ class VehicleControllerTest extends AbstractControllerTest{
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(newTo)))
-                .andExpect(status().isConflict());
+                .andExpect(status().isUnprocessableEntity());
     }
 }

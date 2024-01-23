@@ -1,11 +1,9 @@
 package com.lissenok88.vehicle.directory.to;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.ToString;
 import lombok.Value;
 
 @Value
-@ToString
 public class VehicleTo extends BaseTo{
 
     @NotBlank
