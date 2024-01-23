@@ -34,11 +34,6 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     @Query("SELECT v FROM Vehicle v WHERE v.make =:make OR v.model =:model OR v.category =:category OR v.stateNumber =:stateNumber OR v.year =:year")
     List<Vehicle> findByFilter(String make, String model, String category, String stateNumber, Integer year);
 
-/*
-    @Query("SELECT v FROM Vehicle v WHERE (:make is null OR v.make =:make) AND (:model is null OR v.model =:model) OR v.category =:category OR v.stateNumber =:stateNumber OR v.year =:year")
-    List<Vehicle> findByFilter(String make, String model, String category, String stateNumber, String year);
-*/
-
     //  https://stackoverflow.com/a/60695301/548473 (existed delete code 204, not existed: 404)
     default void deleteExisted(long id) {
         if (delete(id) == 0) {

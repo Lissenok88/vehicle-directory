@@ -9,34 +9,34 @@
     <title>Create New Vehicle</title>
 </head>
 <body>
-<h1>Create New Vehicle</h1>
+<h1>Добавить</h1>
 <div>
     <form method="post">
-        StateNumber: <label>
-        <input type="text" name="stateNumber"/>
-    </label><br><br>
-        Make: <label>
-        <input type="text" name="make">
-    </label><br><br>
-        Model: <label>
-        <input type="text" name="model">
-    </label><br><br>
-        Category: <label>
-        <input type="text" name="category">
-    </label><br><br>
-        Type: <label>
-        <select class="form-control" id="types" name="type">
-            <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
-        </select>
-    </label><br><br>
-        Year: <label>
-        <input type="text" name="year">
-    </label><br><br>
-        Trailer: <label>
-        <input type="text" name="trailer">
-    </label><br><br>
-        <input type="submit" value="Save Vehicle">
-        <input type="button" name="cancel" value="Cancel" onclick='location.href="/ui/vehicle"'>
+        Номер: <label>
+            <input type="text" name="stateNumber"/>
+            </label><br><br>
+        Марка: <label>
+            <input type="text" name="make">
+            </label><br><br>
+        Модель: <label>
+            <input type="text" name="model">
+            </label><br><br>
+        Категория: <label>
+            <input type="text" name="category">
+            </label><br><br>
+        Тип: <label>
+            <select class="form-control" id="types" name="type">
+                <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+            </select>
+            </label><br><br>
+        Год: <label>
+            <input type="text" name="year">
+            </label><br><br>
+        Багажник: <label>
+            <input type="text" name="trailer">
+            </label><br><br>
+        <input type="submit" value="Сохранить">
+        <input type="button" name="cancel" value="Закрыть" onclick='location.href="/ui/vehicle"'>
     </form>
 </div>
 </body>

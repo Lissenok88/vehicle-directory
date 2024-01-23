@@ -9,19 +9,19 @@
 </head>
 
 <body>
-<h1>Vehicles</h1>
-<button type="button" onclick='location.href="/ui/vehicle/new"'>Add new vehicle</button>
+<h1>Транспортные средства</h1>
+<button type="button" onclick='location.href="/ui/vehicle/new"'>Добавить</button>
 <br><br>
 <table class="table table-striped">
     <thead class="sticky-top bg-white">
     <tr>
-        <th>StateNumber</th>
-        <th>Make</th>
-        <th>Model</th>
-        <th>Category</th>
-        <th>Type</th>
-        <th>Year</th>
-        <th>Trailer</th>
+        <th>Номер</th>
+        <th>Марка</th>
+        <th>Модель</th>
+        <th>Категория</th>
+        <th>Тип</th>
+        <th>Год</th>
+        <th>Прицеп</th>
     </tr>
     </thead>
     <tbody>
@@ -33,7 +33,7 @@
         <td th:text="${vehicleTo.getType()}"></td>
         <td th:text="${vehicleTo.getYear()}"></td>
         <td th:text="${vehicleTo.getTrailer()}"></td>
-        <td><a th:href="'/ui/vehicle/' + ${vehicleTo.getId()} + '/edit'">Update</a></td>
+        <td><a th:href="'/ui/vehicle/' + ${vehicleTo.getId()} + '/edit'">Редактировать</a></td>
     </tr>
     </tbody>
 </table>
@@ -42,37 +42,37 @@
     <dl>
     <input type="hidden" name="action" value="filter">
         <dl>
-        <dt>Make:
+        <dt>Марка:
             <label>
                 <input type="text" name="make" th:value="${param.make}">
             </label></dt>
         </dl>
         <dl>
-        <dt>Model:
+        <dt>Модель:
             <label>
                 <input type="text" name="model" th:value="${param.models}">
             </label></dt>
         </dl>
         <dl>
-        <dt>Category:
+        <dt>Категория:
             <label>
                 <input type="text" name="category" th:value="${param.category}">
             </label></dt>
         </dl>
         <dl>
-        <dt>State Number:
+        <dt>Номер:
             <label>
                 <input type="text" name="stateNumber" th:value="${param.stateNumber}">
             </label></dt>
         </dl>
         <dl>
-        <dt>Year:
+        <dt>Год:
             <label>
                 <input type="text" name="year" th:value="${param.year}">
             </label></dt>
         </dl>
-        <button type="submit">Filter</button>
-        <button type="button" onclick='location.href="/ui/vehicle"'>Clear Filter</button>
+        <button type="submit">Поиск</button>
+        <button type="button" onclick='location.href="/ui/vehicle"'>Сбросить</button>
     </dl>
 </form>
 <br/>
