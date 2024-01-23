@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -21,7 +20,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VehicleUIController {
     static final String VEHICLE_URL = "/ui/vehicle";
-
     private final VehicleRepository repository;
     private final VehicleMapper mapper;
     private final VehicleService service;
@@ -45,13 +43,8 @@ public class VehicleUIController {
     @GetMapping("/{id}/edit")
     public String showEdit(@PathVariable long id, Model model) {
         log.info("get vehicle {}", id);
-        List<String> types = new ArrayList<>();
-        types.add("Внедорожник");
-        types.add("Седан");
-        types.add("Хэтчбек");
-        types.add("Универсал");
         VehicleTo vehicleTo = mapper.toTo(repository.getExisted(id));
-        model.addAttribute("types", types);
+        model.addAttribute("types", service.getTypes());
         model.addAttribute("vehicleTo", vehicleTo);
         return "vehicle-edit";
     }
@@ -59,12 +52,7 @@ public class VehicleUIController {
     @GetMapping("/new")
     public String showAdd(Model model) {
         log.info("new vehicle");
-        List<String> types = new ArrayList<>();
-        types.add("Внедорожник");
-        types.add("Седан");
-        types.add("Хэтчбек");
-        types.add("Универсал");
-        model.addAttribute("types", types);
+        model.addAttribute("types", service.getTypes());
         return "vehicle-add";
     }
 

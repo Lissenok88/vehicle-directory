@@ -29,17 +29,9 @@ import static com.lissenok88.vehicle.directory.util.ValidationUtil.*;
 public class VehicleController {
 
     public static final String REST_URL = "/api/vehicle";
-
-    private VehicleRepository repository;
-    private VehicleMapper mapper;
-    private VehicleService service;
-
-    @Autowired
-    VehicleController(VehicleRepository repository, VehicleMapper mapper, VehicleService service) {
-        this.repository = repository;
-        this.mapper = mapper;
-        this.service = service;
-    }
+    private final VehicleRepository repository;
+    private final VehicleMapper mapper;
+    private final VehicleService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @Transactional

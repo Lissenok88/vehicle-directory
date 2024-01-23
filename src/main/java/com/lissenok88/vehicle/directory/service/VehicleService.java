@@ -6,9 +6,9 @@ import com.lissenok88.vehicle.directory.model.Vehicle;
 import com.lissenok88.vehicle.directory.repository.VehicleRepository;
 import com.lissenok88.vehicle.directory.to.VehicleTo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.lissenok88.vehicle.directory.util.ValidationUtil.checkNew;
@@ -17,14 +17,8 @@ import static com.lissenok88.vehicle.directory.util.ValidationUtil.checkNew;
 @RequiredArgsConstructor
 public class VehicleService {
 
-    private VehicleMapper mapper;
-    private VehicleRepository repository;
-
-    @Autowired
-    VehicleService(VehicleMapper mapper, VehicleRepository repository) {
-        this.mapper = mapper;
-        this.repository = repository;
-    }
+    private final VehicleMapper mapper;
+    private final VehicleRepository repository;
 
     public Vehicle create(VehicleTo vehicleTo) {
         checkNew(vehicleTo);
@@ -33,5 +27,14 @@ public class VehicleService {
             throw new IllegalRequestDataException("the number " + vehicleTo.getStateNumber() + " already exists");
         }
         return repository.save(mapper.toEntity(vehicleTo));
+    }
+
+    public List<String> getTypes() {
+        List<String> types = new ArrayList<>();
+        types.add("Внедорожник");
+        types.add("Седан");
+        types.add("Хэтчбек");
+        types.add("Универсал");
+        return types;
     }
 }
