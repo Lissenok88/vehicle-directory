@@ -1,4 +1,4 @@
-package com.lissenok88.vehicle.directory.controller;
+package com.lissenok88.vehicle.directory.model;
 
 public enum VehicleTypes {
     Внедорожник,

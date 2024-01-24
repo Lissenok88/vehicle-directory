@@ -1,6 +1,6 @@
 package com.lissenok88.vehicle.directory.service;
 
-import com.lissenok88.vehicle.directory.controller.VehicleTypes;
+import com.lissenok88.vehicle.directory.model.VehicleTypes;
 import com.lissenok88.vehicle.directory.dto.VehicleDTO;
 import com.lissenok88.vehicle.directory.error.InvalidVehicleDTOException;
 import com.lissenok88.vehicle.directory.mapper.VehicleMapper;
@@ -9,9 +9,6 @@ import com.lissenok88.vehicle.directory.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
