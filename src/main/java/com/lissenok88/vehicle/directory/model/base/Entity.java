@@ -1,6 +1,6 @@
-package com.lissenok88.vehicle.directory.model;
+package com.lissenok88.vehicle.directory.model.base;
 
-import com.lissenok88.vehicle.directory.HasId;
+import com.lissenok88.vehicle.directory.Identifiable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,19 +9,17 @@ import org.springframework.data.util.ProxyUtils;
 import org.springframework.util.Assert;
 
 @MappedSuperclass
-//  https://stackoverflow.com/a/6084701/548473
 @Access(AccessType.FIELD)
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class BaseEntity implements Persistable<Long>, HasId {
+public abstract class Entity implements Persistable<Long>, Identifiable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(hidden = true)
     protected Long id;
 
-    // doesn't work for hibernate lazy proxy
     public long id() {
         Assert.notNull(id, "Entity must have id");
         return id;
@@ -32,7 +30,6 @@ public abstract class BaseEntity implements Persistable<Long>, HasId {
         return id == null;
     }
 
-    //    https://stackoverflow.com/questions/1638723
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -41,7 +38,7 @@ public abstract class BaseEntity implements Persistable<Long>, HasId {
         if (o == null || !getClass().equals(ProxyUtils.getUserClass(o))) {
             return false;
         }
-        BaseEntity that = (BaseEntity) o;
+        Entity that = (Entity) o;
         return id != null && id.equals(that.id);
     }
 

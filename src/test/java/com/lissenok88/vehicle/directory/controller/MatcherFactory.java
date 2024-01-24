@@ -1,6 +1,6 @@
-package com.lissenok88.vehicle.directory.web;
+package com.lissenok88.vehicle.directory.controller;
 
-import com.lissenok88.vehicle.directory.util.JsonUtil;
+import com.lissenok88.vehicle.directory.mapper.JSONMapper;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
@@ -54,7 +54,7 @@ public class MatcherFactory {
         }
 
         public ResultMatcher contentJson(T expected) {
-            return result -> assertMatch(JsonUtil.readValue(getContent(result), clazz), expected);
+            return result -> assertMatch(JSONMapper.readValue(getContent(result), clazz), expected);
         }
 
         @SafeVarargs
@@ -63,11 +63,11 @@ public class MatcherFactory {
         }
 
         public ResultMatcher contentJson(Iterable<T> expected) {
-            return result -> assertMatch(JsonUtil.readValues(getContent(result), clazz), expected);
+            return result -> assertMatch(JSONMapper.readValues(getContent(result), clazz), expected);
         }
 
         public T readFromJson(ResultActions action) throws UnsupportedEncodingException {
-            return JsonUtil.readValue(getContent(action.andReturn()), clazz);
+            return JSONMapper.readValue(getContent(action.andReturn()), clazz);
         }
 
         private static String getContent(MvcResult result) throws UnsupportedEncodingException {

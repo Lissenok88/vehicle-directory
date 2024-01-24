@@ -1,9 +1,9 @@
-package com.lissenok88.vehicle.directory.web;
+package com.lissenok88.vehicle.directory.controller.ui;
 
 import com.lissenok88.vehicle.directory.mapper.VehicleMapper;
 import com.lissenok88.vehicle.directory.repository.VehicleRepository;
 import com.lissenok88.vehicle.directory.service.VehicleService;
-import com.lissenok88.vehicle.directory.to.VehicleTo;
+import com.lissenok88.vehicle.directory.dto.VehicleDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class VehicleUIController {
     @GetMapping("/{id}")
     public String get(@PathVariable long id, Model model) {
         log.info("get vehicle {}", id);
-        VehicleTo vehicleTo = mapper.toTo(repository.getExisted(id));
+        VehicleDTO vehicleTo = mapper.toTo(repository.getExisted(id));
         model.addAttribute("vehicleTo", vehicleTo);
         return "vehicles";
     }
@@ -35,7 +35,7 @@ public class VehicleUIController {
     @GetMapping
     public String getAll(Model model) {
         log.info("getAll");
-        List<VehicleTo> vehicleTos = mapper.toToList(repository.findAll());
+        List<VehicleDTO> vehicleTos = mapper.toToList(repository.findAll());
         model.addAttribute("vehicleTos", vehicleTos);
         return "vehicles";
     }
@@ -43,7 +43,7 @@ public class VehicleUIController {
     @GetMapping("/{id}/edit")
     public String showEdit(@PathVariable long id, Model model) {
         log.info("get vehicle {}", id);
-        VehicleTo vehicleTo = mapper.toTo(repository.getExisted(id));
+        VehicleDTO vehicleTo = mapper.toTo(repository.getExisted(id));
         model.addAttribute("types", service.getTypes());
         model.addAttribute("vehicleTo", vehicleTo);
         return "vehicle-edit";
@@ -57,14 +57,14 @@ public class VehicleUIController {
     }
 
     @PostMapping("/{id}/edit")
-    public String update(@PathVariable long id, @Valid @ModelAttribute("vehicleTo") VehicleTo vehicleTo, Model model) {
+    public String update(@PathVariable long id, @Valid @ModelAttribute("vehicleTo") VehicleDTO vehicleTo, Model model) {
         log.info("update {} with id={}", vehicleTo, vehicleTo.id());
         repository.save(mapper.toEntity(vehicleTo));
         return "redirect:/ui/vehicle";
     }
 
     @PostMapping("/new")
-    public String create(@Valid @ModelAttribute("vehicleTo") VehicleTo vehicleTo, Model model) {
+    public String create(@Valid @ModelAttribute("vehicleTo") VehicleDTO vehicleTo, Model model) {
         log.info("create {}", vehicleTo);
         service.create(vehicleTo);
         return "redirect:/ui/vehicle";
@@ -72,7 +72,7 @@ public class VehicleUIController {
 
     @GetMapping("/filter")
     public String getByFilter(
-            @RequestParam @Nullable String make,
+            @RequestParam @Nullable String brand,
             @RequestParam @Nullable String models,
             @RequestParam @Nullable String category,
             @RequestParam @Nullable String stateNumber,
@@ -80,7 +80,7 @@ public class VehicleUIController {
             Model model
     ) {
         log.info("getByFilter");
-        List<VehicleTo> vehicleTos = mapper.toToList(repository.findByFilter(make, models, category, stateNumber, year));
+        List<VehicleDTO> vehicleTos = mapper.toToList(repository.findByFilter(brand, models, category, stateNumber, year));
         model.addAttribute("vehicleTos", vehicleTos);
         return "vehicles";
     }

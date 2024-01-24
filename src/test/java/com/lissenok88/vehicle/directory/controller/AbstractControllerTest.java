@@ -1,4 +1,4 @@
-package com.lissenok88.vehicle.directory.web;
+package com.lissenok88.vehicle.directory.controller;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

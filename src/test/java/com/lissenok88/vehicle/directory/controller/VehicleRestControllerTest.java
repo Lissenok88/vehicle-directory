@@ -1,10 +1,11 @@
-package com.lissenok88.vehicle.directory.web;
+package com.lissenok88.vehicle.directory.controller;
 
+import com.lissenok88.vehicle.directory.controller.rest.VehicleRestController;
+import com.lissenok88.vehicle.directory.dto.VehicleDTO;
 import com.lissenok88.vehicle.directory.mapper.VehicleMapper;
 import com.lissenok88.vehicle.directory.model.Vehicle;
 import com.lissenok88.vehicle.directory.repository.VehicleRepository;
-import com.lissenok88.vehicle.directory.to.VehicleTo;
-import com.lissenok88.vehicle.directory.util.JsonUtil;
+import com.lissenok88.vehicle.directory.mapper.JSONMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,17 +13,15 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
-import static com.lissenok88.vehicle.directory.util.JsonUtil.writeValue;
-import static com.lissenok88.vehicle.directory.web.VehicleTestData.*;
+import static com.lissenok88.vehicle.directory.mapper.JSONMapper.writeValue;
+import static com.lissenok88.vehicle.directory.controller.VehicleTestData.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class VehicleControllerTest extends AbstractControllerTest{
+class VehicleRestControllerTest extends AbstractControllerTest{
 
-    private static final String REST_URL = VehicleController.REST_URL;
+    private static final String REST_URL = VehicleRestController.REST_URL;
 
     @Autowired
     private VehicleRepository repository;
@@ -39,25 +38,6 @@ class VehicleControllerTest extends AbstractControllerTest{
     }
 
     @Test
-    void getAllByCategory() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "/by-category")
-                .param("category", "B"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VEHICLE_TO_MATCHER.contentJson(VEHICLE_TO_1, VEHICLE_TO_2, VEHICLE_TO_3, VEHICLE_TO_4, VEHICLE_TO_5));
-
-    }
-
-    @Test
-    void getAllByModel() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "/by-model")
-                .param("model", "Corolla"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(VEHICLE_TO_MATCHER.contentJson(List.of(VEHICLE_TO_2)));
-    }
-
-    @Test
     void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
@@ -68,7 +48,7 @@ class VehicleControllerTest extends AbstractControllerTest{
     @Test
     void getByFilter() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "/filter")
-                .param("make", "Toyota"))
+                .param("brand", "Toyota"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(VEHICLE_TO_MATCHER.contentJson(VEHICLE_TO_1, VEHICLE_TO_2, VEHICLE_TO_4));
@@ -76,10 +56,10 @@ class VehicleControllerTest extends AbstractControllerTest{
 
     @Test
     void update() throws Exception {
-        VehicleTo updated = getUpdate();
+        VehicleDTO updated = getUpdate();
         perform(MockMvcRequestBuilders.put(REST_URL + "/" + VEHICLE_ID)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(JSONMapper.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
@@ -89,7 +69,7 @@ class VehicleControllerTest extends AbstractControllerTest{
     @Test
     @Transactional
     void createWithLocation()throws Exception {
-        VehicleTo newTo = getNew();
+        VehicleDTO newTo = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(newTo)))
@@ -97,7 +77,7 @@ class VehicleControllerTest extends AbstractControllerTest{
 
         Vehicle created = VEHICLE_MATCHER.readFromJson(action);
         long newId = created.id();
-        Vehicle newVehicle = new Vehicle(newId, newTo.getStateNumber(), newTo.getMake(), newTo.getModel(), newTo.getCategory(), newTo.getType(), newTo.getYear(), newTo.getTrailer());
+        Vehicle newVehicle = new Vehicle(newId, newTo.getStateNumber(), newTo.getBrand(), newTo.getModel(), newTo.getCategory(), newTo.getType(), newTo.getYear(), newTo.getTrailer());
         VEHICLE_MATCHER.assertMatch(created, newVehicle);
         VEHICLE_MATCHER.assertMatch(repository.getExisted(created.id()), newVehicle);
     }
@@ -105,7 +85,7 @@ class VehicleControllerTest extends AbstractControllerTest{
     @Test
     @Transactional
     void createSameStateNumber() throws Exception{
-        VehicleTo newTo = new VehicleTo(null, VEHICLE_TO_1.getStateNumber(), "Toyota", "Camry", "B", "Седан", "2020", "NO");
+        VehicleDTO newTo = new VehicleDTO(null, VEHICLE_TO_1.getStateNumber(), "Toyota", "Camry", "B", "Седан", "2020", "NO");
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(writeValue(newTo)))

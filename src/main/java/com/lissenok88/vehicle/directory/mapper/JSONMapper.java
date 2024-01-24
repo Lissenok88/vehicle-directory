@@ -1,4 +1,4 @@
-package com.lissenok88.vehicle.directory.util;
+package com.lissenok88.vehicle.directory.mapper;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 @UtilityClass
-public class JsonUtil {
+public class JSONMapper {
 
     private static ObjectMapper mapper;
 
     public static void setMapper(ObjectMapper mapper) {
-        JsonUtil.mapper = mapper;
+        JSONMapper.mapper = mapper;
     }
 
     public static <T> List<T> readValues(String json, Class<T> clazz) {
@@ -40,7 +40,7 @@ public class JsonUtil {
         try {
             return mapper.writeValueAsString(obj);
         } catch (JsonProcessingException e) {
-            throw new IllegalStateException("Invalid write to JSON:\n'" + obj + "'", e);
+            throw new IllegalStateException("Invalid write dto JSON:\n'" + obj + "'", e);
         }
     }
 

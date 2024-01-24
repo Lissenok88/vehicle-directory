@@ -15,6 +15,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/vehicledirectory
     username: postgres
     password: postgres
+  thymeleaf:
+    prefix: classpath:html/templates/
+    suffix: .html
 
   jackson:
     visibility:
@@ -26,8 +29,8 @@ spring:
     init:
       mode: always
       schema-locations:
-        "classpath:schema.sql"
-      data-locations: "classpath:data.sql"
+        "classpath:db/schema.sql"
+      data-locations: "classpath:db/data.sql"
 
 logging:
   level:
@@ -40,5 +43,3 @@ server.servlet:
     charset: UTF-8
     enabled: true
     force: true
-
-

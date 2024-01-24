@@ -1,26 +1,26 @@
 package com.lissenok88.vehicle.directory.model;
 
+import com.lissenok88.vehicle.directory.model.base.Entity;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
-@Entity
+@jakarta.persistence.Entity
 @Table(name = "vehicle")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Vehicle extends BaseEntity {
+public class Vehicle extends Entity {
 
     @Column(name = "state_number", nullable = false)
     @NotBlank
     private String stateNumber;
 
-    @Column(name = "make", nullable = false)
+    @Column(name = "brand", nullable = false)
     @NotBlank
-    private String make;
+    private String brand;
 
     @Column(name = "model", nullable = false)
     @NotBlank
@@ -42,10 +42,10 @@ public class Vehicle extends BaseEntity {
     @NotBlank
     private  String trailer;
 
-    public Vehicle(Long id, String stateNumber, String make, String model, String category, String type, String year, String trailer) {
+    public Vehicle(Long id, String stateNumber, String brand, String model, String category, String type, String year, String trailer) {
         super(id);
         this.stateNumber = stateNumber;
-        this.make = make;
+        this.brand = brand;
         this.model = model;
         this.category = category;
         this.type = type;

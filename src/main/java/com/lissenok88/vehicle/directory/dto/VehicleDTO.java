@@ -1,16 +1,16 @@
-package com.lissenok88.vehicle.directory.to;
+package com.lissenok88.vehicle.directory.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Value;
 
 @Value
-public class VehicleTo extends BaseTo{
+public class VehicleDTO extends BaseDTO {
 
     @NotBlank
     String stateNumber;
 
     @NotBlank
-    String make;
+    String brand;
 
     @NotBlank
     String model;
@@ -27,10 +27,10 @@ public class VehicleTo extends BaseTo{
     @NotBlank
     String trailer;
 
-    public VehicleTo(Long id, String stateNumber, String make, String model, String category, String type, String year, String trailer) {
+    public VehicleDTO(Long id, String stateNumber, String brand, String model, String category, String type, String year, String trailer) {
         super(id);
         this.stateNumber = stateNumber;
-        this.make = make;
+        this.brand = brand;
         this.model = model;
         this.category = category;
         this.type = type;

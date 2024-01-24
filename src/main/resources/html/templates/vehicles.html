@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<!--/*@thymesVar id="vehicleTo" type="com.lissenok88.vehicle.directory.to.VehicleTo"*/-->
-<!--/*@thymesVar id="vehicleTos" type="java.util.List<com.lissenok88.vehicle.directory.to.VehicleTo>"*/-->
+<!--/*@thymesVar id="vehicleTo" type="com.lissenok88.vehicle.directory.dto.VehicleDTO"*/-->
+<!--/*@thymesVar id="vehicleTos" type="java.util.List<com.lissenok88.vehicle.directory.dto.VehicleDTO>"*/-->
 
 <head>
     <meta charset="UTF-8"/>
@@ -27,7 +27,7 @@
     <tbody>
     <tr th:each="vehicleTo : ${vehicleTos}">
         <td th:text="${vehicleTo.getStateNumber()}"></td>
-        <td th:text="${vehicleTo.getMake()}"></td>
+        <td th:text="${vehicleTo.getBrand()}"></td>
         <td th:text="${vehicleTo.getModel()}"></td>
         <td th:text="${vehicleTo.getCategory()}"></td>
         <td th:text="${vehicleTo.getType()}"></td>
@@ -44,7 +44,7 @@
         <dl>
         <dt>Марка:
             <label>
-                <input type="text" name="make" th:value="${param.make}">
+                <input type="text" name="brand" th:value="${param.brand}">
             </label></dt>
         </dl>
         <dl>

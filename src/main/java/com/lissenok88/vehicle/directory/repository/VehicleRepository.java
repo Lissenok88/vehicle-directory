@@ -1,6 +1,6 @@
 package com.lissenok88.vehicle.directory.repository;
 
-import com.lissenok88.vehicle.directory.error.NotFoundException;
+import com.lissenok88.vehicle.directory.error.NotFoundVehicleException;
 import com.lissenok88.vehicle.directory.model.Vehicle;
 import com.lissenok88.vehicle.directory.util.Util;
 import io.swagger.v3.oas.annotations.Hidden;
@@ -31,13 +31,12 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
     List<Vehicle> findByStateNumber(String stateNumber);
 
 
-    @Query("SELECT v FROM Vehicle v WHERE v.make =:make OR v.model =:model OR v.category =:category OR v.stateNumber =:stateNumber OR v.year =:year")
-    List<Vehicle> findByFilter(String make, String model, String category, String stateNumber, Integer year);
+    @Query("SELECT v FROM Vehicle v WHERE v.brand =:brand OR v.model =:model OR v.category =:category OR v.stateNumber =:stateNumber OR v.year =:year")
+    List<Vehicle> findByFilter(String brand, String model, String category, String stateNumber, Integer year);
 
-    //  https://stackoverflow.com/a/60695301/548473 (existed delete code 204, not existed: 404)
     default void deleteExisted(long id) {
         if (delete(id) == 0) {
-            throw new NotFoundException("Entity with id=" + id + " not found");
+            throw new NotFoundVehicleException("Entity with id=" + id + " not found");
         }
     }
 

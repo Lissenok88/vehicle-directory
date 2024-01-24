@@ -1,6 +1,6 @@
-package com.lissenok88.vehicle.directory.to;
+package com.lissenok88.vehicle.directory.dto;
 
-import com.lissenok88.vehicle.directory.HasId;
+import com.lissenok88.vehicle.directory.Identifiable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
@@ -9,7 +9,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
-public abstract class BaseTo implements HasId {
+public abstract class BaseDTO implements Identifiable {
     @Schema(hidden = true)
     protected Long id;
 
@@ -22,8 +22,8 @@ public abstract class BaseTo implements HasId {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BaseTo baseTo = (BaseTo) o;
-        return id.equals(baseTo.id);
+        BaseDTO baseDTO = (BaseDTO) o;
+        return id.equals(baseDTO.id);
     }
 
     @Override

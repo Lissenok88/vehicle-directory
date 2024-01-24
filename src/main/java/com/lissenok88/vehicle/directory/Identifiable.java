@@ -3,7 +3,7 @@ package com.lissenok88.vehicle.directory;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.util.Assert;
 
-public interface HasId {
+public interface Identifiable {
     Long getId();
 
     void setId(Long id);
@@ -13,7 +13,6 @@ public interface HasId {
         return getId() == null;
     }
 
-    // doesn't work for hibernate lazy proxy
     default long id() {
         Assert.notNull(getId(), "Entity must has id");
         return getId();
